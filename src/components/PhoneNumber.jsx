@@ -24,10 +24,6 @@ const PhoneNumber = () => {
     setShowOtpInput(true);
   };
 
-  const onOtpSubmit = (otp) => {
-    console.log('Login Successful', otp);
-  };
-
   return (
     <div className='otp-wrapper'>
       {!showOtpInput && <p className='heading'>Enter Your Mobile Number</p>}
@@ -46,7 +42,7 @@ const PhoneNumber = () => {
       ) : (
         <div>
           <p className='enter-otp'>Enter OTP sent to {phoneNumber}</p>
-          <OtpInput length={4} onOtpSubmit={onOtpSubmit} />
+          <OtpInput />
         </div>
       )}
     </div>
