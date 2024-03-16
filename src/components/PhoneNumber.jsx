@@ -29,7 +29,7 @@ const PhoneNumber = () => {
   };
 
   return (
-    <div>
+    <div className='otp-wrapper'>
       {!showOtpInput && <p className='heading'>Enter Your Mobile Number</p>}
 
       {!showOtpInput ? (
