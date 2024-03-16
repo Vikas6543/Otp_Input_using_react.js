@@ -1,19 +1,16 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react';
 
-const OtpInput = ({ length = 4, onOtpSubmit = () => {} }) => {
+let length = 4;
+
+const OtpInput = () => {
   const [otp, setOtp] = useState(new Array(length).fill(''));
   const inputRefs = useRef([]);
 
-  useEffect(() => {
-    if (inputRefs.current[0]) {
-      inputRefs.current[0].focus();
-    }
-  }, []);
-
   const handleChange = (index, e) => {
     const value = e.target.value;
-    if (isNaN(value)) return;
+    if (isNaN(value)) {
+      return;
+    }
 
     const newOtp = [...otp];
     // allow only one input
@@ -22,7 +19,9 @@ const OtpInput = ({ length = 4, onOtpSubmit = () => {} }) => {
 
     // submit trigger
     const combinedOtp = newOtp.join('');
-    if (combinedOtp.length === length) onOtpSubmit(combinedOtp);
+    if (combinedOtp.length === length) {
+      console.log('otp submitted & value is - ' + newOtp.join(''));
+    }
 
     // Move to next input if current field is filled
     if (value && index < length - 1 && inputRefs.current[index + 1]) {
@@ -31,12 +30,8 @@ const OtpInput = ({ length = 4, onOtpSubmit = () => {} }) => {
   };
 
   const handleClick = (index) => {
+    // moves the cursor to the second character of the input field
     inputRefs.current[index].setSelectionRange(1, 1);
-
-    // optional
-    if (index > 0 && !otp[index - 1]) {
-      inputRefs.current[otp.indexOf('')].focus();
-    }
   };
 
   const handleKeyDown = (index, e) => {
@@ -50,6 +45,12 @@ const OtpInput = ({ length = 4, onOtpSubmit = () => {} }) => {
       inputRefs.current[index - 1].focus();
     }
   };
+
+  useEffect(() => {
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+  }, []);
 
   return (
     <div>
